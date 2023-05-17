@@ -297,9 +297,9 @@ timeline.push(maze_task_complete_1,
               next_story_instructions,
               maze_task_complete_2);
 
-
+// -----------------
 // how do I randomise the order of the stories?
-
+// -----------------
 // if you want to show stories in a random order, you can use the following code to replace the code between lines 294-298
 // it will use the `jspsych.randomisation.shuffle` function to randomly shuffle the stories
 // this shuffled array is stored in `stories`
@@ -315,6 +315,24 @@ timeline.push(maze_task_complete_1,
 // timeline.push(stories[0],
 //               next_story_instructions,
 //               stories[1]);
+
+
+
+// ---------------------
+// how do I choose just one story at random from a list of stories?
+// ---------------------
+// you might have a number of stories but only want the participant to read one at random, e.g. if the story is very long
+// this can be done in the same way as the randomised order example, but instead of pushing both stories, we just select the story at index 0
+
+
+// var timeline = [];
+//
+// var stories = jsPsych.randomization.shuffle([
+//   maze_task_complete_1,
+//   maze_task_complete_2]);
+//
+// timeline.push(stories[0],
+//               next_story_instructions);
 
 
 
