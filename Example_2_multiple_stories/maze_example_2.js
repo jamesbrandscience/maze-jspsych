@@ -7,96 +7,18 @@ var jsPsych = initJsPsych({
   }
 });
 
+// --------------------
 // MAZE TASK
-
-// STIMULI
-// these are basic stimuli consisting of two trials for the maze task contained in maze_story_1
-// the 'Target' is the correct word and the 'Distractor' is always incorrect
-// the 'Story_num', 'Sentence_num' and 'Word_num' properties are slightly irrelevant for this demo
-// but would be very useful for a full maze task
-
-// there is a better way to create a full stimuli list and store it as a .js file
-// see maze_stimuli_create.R for code to convert a .csv file to a .js file to do this
-
-var maze_story_1 = [{
-        "Story_num": 1,
-        "Sentence_num": 1,
-        "Word_num": 1,
-        "Word_tally": 1,
-        "Total_words": 8,
-        "Target": "This",
-        "Distractor": "x-x-x"
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 1,
-        "Word_num": 2,
-        "Word_tally": 2,
-        "Total_words": 8,
-        "Target": "is",
-        "Distractor": "us"
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 1,
-        "Word_num": 3,
-        "Word_tally": 3,
-        "Total_words": 8,
-        "Target": "a",
-        "Distractor": "ha"
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 1,
-        "Word_num": 4,
-        "Word_tally": 4,
-        "Total_words": 8,
-        "Target": "sentence.",
-        "Distractor": "views."
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 2,
-        "Word_num": 1,
-        "Word_tally": 5,
-        "Total_words": 8,
-        "Target": "It",
-        "Distractor": "x-x-x"
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 2,
-        "Word_num": 2,
-        "Word_tally": 6,
-        "Total_words": 8,
-        "Target": "has",
-        "Distractor": "sun"
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 2,
-        "Word_num": 3,
-        "Word_tally": 7,
-        "Total_words": 8,
-        "Target": "no",
-        "Distractor": "sit"
-    },
-    {
-        "Story_num": 1,
-        "Sentence_num": 2,
-        "Word_num": 4,
-        "Word_tally": 8,
-        "Total_words": 8,
-        "Target": "intelocutors",
-        "Distractor": "confederation"
-    }
-];
-
+// --------------------
 
 // MAZE TRIAL
 // this is the code to create our basic maze trial
 
 // it uses the `plugin-maze-keyboard.js` plugin which is just a modified html keyboard response
+
+// we add a progress bar to let participants know how far in to the story they are
+// this works based on the `Word_tally` variable in the stimuli, which increases by one for each new word pair
+// the progress bar has a maximum value based on the `Total_words` variable, which is a static number that is calculated a the largest `Word_tally` value in the story
 
 // the `on_start` part shuffles the order of the target and distractor words, so that one is on the left and one is on the right
 // this is assigned using the `data.stimulus_left` and `data.stimulus_right` assignments
@@ -248,39 +170,13 @@ var maze_task_story_1 = {
 };
 
 
-
-
+// -------------------
 // COMPREHENSION QUESTIONS
+// -------------------
+
 // typically we want to check that participants are paying attention and have comprehended the story
 // to check this we can use comprehension questions which are presented after the participant has read the story
 // these are typically in the form of a question that has 2 answers, one correct and one distractor
-
-// STIMULI
-// there are also stimuli for two comprehension questions contained in maze_questions_1
-// there are two possible answers `Answer1` and `Answer2`
-// Answer1 is always the correct one
-
-// we will again include `Story_num` so we can store which story the questions relate to
-// there is also `Question_num` which indexes which question is being asked
-
-// we store the stimuli in the variable `maze_questions_1`
-
-var maze_questions_1 = [
-  {
-    "Story_num": "1",
-    "Question_num": "1",
-    "Question": "What was the first word you selected?",
-    "Answer1": "This",
-    "Answer2": "x-x-x"
-  },
-  {
-    "Story_num": "1",
-    "Question_num": "2",
-    "Question": "Which word is longer?",
-    "Answer1": "Floccinaucinihilipilification",
-    "Answer2": "The"
-  }
-];
 
 // COMPREHENSION TRIAL
 // the comprehension question is presented in the same way as a `maze_trial`
@@ -290,14 +186,14 @@ var comprehension_trial = {
     type: jsPsychMazeKeyboard,
     on_start: function(data) {
         var random1 = jsPsych.randomization.shuffle([
-            jsPsych.timelineVariable('Answer1'),
-            jsPsych.timelineVariable('Answer2')
+            jsPsych.timelineVariable('Target'),
+            jsPsych.timelineVariable('Distractor')
         ]);
 
         data.stimulus_left = random1[0];
         data.stimulus_right = random1[1];
-        data.Target = jsPsych.timelineVariable('Answer1');
-        data.Distractor = jsPsych.timelineVariable('Answer2');
+        data.Target = jsPsych.timelineVariable('Target');
+        data.Distractor = jsPsych.timelineVariable('Distractor');
     },
     choices: ["e", "i"],
     prompt: jsPsych.timelineVariable('Question'),
@@ -330,6 +226,7 @@ var comprehension_trial = {
 
 var comprehension_instructions = {
     type: jsPsychInstructions,
+    data: { trial1: 'instructions'},
     pages: ["That is the end of the story.<br/><br/>You will now be asked a number of questions.<br/><br/>Press <b>'e'</b> if you think the correct answer is on the left and <b>'i'</b> if you think the correct answer is on the right"],
     show_clickable_nav: true,
     allow_backward: false,
@@ -350,7 +247,75 @@ var maze_task_complete_1 = {
     timeline: [maze_task_story_1, comprehension_instructions, comprehension_questions_1]
 };
 
+// --------------
+// MULTIPLE STORIES
+// --------------
+
+// to add extra stories to your experiment, you can reuse the code, but changing the var names and the timeline variables/timeline
+// on line 167, we created `maze_task_story_1`, which had `maze_story_1` as the timeline variable
+// in our stimuli folder, there is now a new variable called `maze_story_2`, which contains a new story, this is located in `maze_story_stimuli.js`
+// we can use `maze_story_2` as the timeline variable and call the var `maze_task_story_2`
+
+var maze_task_story_2 = {
+    timeline: [loop_node],
+    timeline_variables: maze_story_2
+};
+
+// we can do the same for our comprehension questions, where we use `maze_questions_2` as the timeline variable
+// the new questions are in the stimuli folder in `maze_comprehension_stimuli.js`
+
+var comprehension_questions_2 = {
+    timeline: [comprehension_trial],
+    timeline_variables: maze_questions_2
+};
+
+// now we put everything into a new var called `maze_task_complete_2`
+
+var maze_task_complete_2 = {
+    timeline: [maze_task_story_2, comprehension_instructions, comprehension_questions_2]
+};
+
+// if you have lots of stories and do not want to manually copy, paste and then change the values of the timeline variables, see the `maze_stimuli_create.R` script which will do this for all your stimuli
+
+
+// we now create an instructions page to separate the end of the comprehension questions and the start of the next story
+
+var next_story_instructions = {
+    type: jsPsychInstructions,
+    data: { trial1: 'instructions'},
+    pages: ["We will now move on to the next story. Feel free to take a short rest.<br/><br/>Press <b>'e'</b> if you think the correct answer is on the left and <b>'i'</b> if you think the correct answer is on the right"],
+    show_clickable_nav: true,
+    allow_backward: false,
+    allow_keys: false
+};
+
+// we push both `maze_task_complete_1` and `maze_task_complete_2` to our timeline
+
 var timeline = [];
-timeline.push(maze_task_complete_1);
+
+timeline.push(maze_task_complete_1,
+              next_story_instructions,
+              maze_task_complete_2);
+
+
+// how do I randomise the order of the stories?
+
+// if you want to show stories in a random order, you can use the following code to replace the code between lines 294-298
+// it will use the `jspsych.randomisation.shuffle` function to randomly shuffle the stories
+// this shuffled array is stored in `stories`
+// we can the use `stories[0]` and `stories[1]` which will represent the first and second values in the shuffled array (javascript uses 0 to index the first object, and 1 to index the second)
+
+
+// var timeline = [];
+//
+// var stories = jsPsych.randomization.shuffle([
+//   maze_task_complete_1,
+//   maze_task_complete_2]);
+//
+// timeline.push(stories[0],
+//               next_story_instructions,
+//               stories[1]);
+
+
 
 jsPsych.run(timeline);
