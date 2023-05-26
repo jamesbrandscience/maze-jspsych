@@ -1,6 +1,5 @@
 library(tidyverse)
 library(jsonlite)
-library(here)
 
 # natural_stories <- read_lines("~/Downloads/for_ibex.txt") %>%
 #   as_tibble() %>%
@@ -24,11 +23,9 @@ library(here)
 
 #set the working directory to the folder where this located
 setwd("~/Documents/GitHub/maze-jspsych/Example_3_csv_to_javascript/")
-getwd()
-here()
 
 #read in csv file
-natural_stories <- read_csv(paste0(here(), "/original_csv/natural_stories_maze_Boyce_Levy_2023.csv"))
+natural_stories <- read_csv("original_csv/natural_stories_maze_Boyce_Levy_2023.csv")
 
 #with the natural_stories data we need to apply several data processing steps so that it is in a usable format
 #these are explained below
@@ -104,7 +101,7 @@ for (i in unique(natural_stories_tidy$Story_num)) {
 
 #we will now write this file so we have a .js version of our stimuli, which jspsych can read
 write_file(x = story_all,
-           file = paste0(here(), "/original_csv/natural_stories_maze_stimuli.js"))
+           file = "output_js/maze_story_stimuli.js")
 
 
 
@@ -130,7 +127,7 @@ write_file(x = story_all,
 # 
 # write_csv(natural_stories_questions, "natural_stories_questions_Boyce_Levy_2023.csv")
 
-natural_stories_questions <- read_csv(paste0(here(), "/original_csv/natural_stories_questions_Boyce_Levy_2023.csv"))
+natural_stories_questions <- read_csv("original_csv/natural_stories_questions_Boyce_Levy_2023.csv")
 
 questions_all <- NULL
 
@@ -149,7 +146,7 @@ for (i in unique(natural_stories_questions$Story_num)) {
 }
 
 write_file(x = questions_all,
-           file = paste0(here(), "/output_js/maze_questions", ".js"))
+           file = "output_js/maze_comprehension_stimuli.js")
 
 
 
@@ -205,6 +202,6 @@ maze_trials_all <- paste0(maze_trials_all,
 
 #this object can be saved as .js file to be used in the jspsych experiment
 write_file(x = maze_trials_all,
-           file = paste0(here(), "/output_js/maze_trials", ".js"))
+           file = "output_js/maze_trials.js")
 
 
