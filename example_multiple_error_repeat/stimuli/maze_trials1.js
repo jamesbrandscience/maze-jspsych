@@ -8,90 +8,90 @@ var mystimuli = [
         "Word_num": 1,
         "Word_tally": 1,
         "Target": "If",
-        "Distractor": "x-x-x",
-        "Target1": "x-x-x",
-        "Distractor1": "x-x-x"
+        "Distractor1": "x-x-x",
+        "Distractor2": "x-x-x",
+        "Distractor3": "x-x-x"
       },
       {
         "Sentence_num": 1,
         "Word_num": 2,
         "Word_tally": 2,
         "Target": "you",
-        "Distractor": "door",
-        "Target1": "ouy",
-        "Distractor1": "odro"
+        "Distractor1": "door",
+        "Distractor2": "uoy",
+        "Distractor3": "dvoro"
       },
       {
         "Sentence_num": 1,
         "Word_num": 3,
         "Word_tally": 3,
         "Target": "were",
-        "Distractor": "anti",
-        "Target1": "reew",
-        "Distractor1": "nati"
+        "Distractor1": "anti",
+        "Distractor2": "ewre",
+        "Distractor3": "tnia"
       },
       {
         "Sentence_num": 1,
         "Word_num": 4,
         "Word_tally": 4,
         "Target": "to",
-        "Distractor": "pre",
-        "Target1": "wtgo",
-        "Distractor1": "vepur"
+        "Distractor1": "pre",
+        "Distractor2": "tqo",
+        "Distractor3": "erpv"
       },
       {
         "Sentence_num": 1,
         "Word_num": 5,
         "Word_tally": 5,
         "Target": "journey",
-        "Distractor": "seasons",
-        "Target1": "njueoyr",
-        "Distractor1": "nssaseo"
+        "Distractor1": "seasons",
+        "Distractor2": "yjenrou",
+        "Distractor3": "seanoss"
       },
       {
         "Sentence_num": 1,
         "Word_num": 6,
         "Word_tally": 6,
         "Target": "to",
-        "Distractor": "ha",
-        "Target1": "tgo",
-        "Distractor1": "eha"
+        "Distractor1": "ha",
+        "Distractor2": "tsgo",
+        "Distractor3": "fvhaa"
       },
       {
         "Sentence_num": 1,
         "Word_num": 7,
         "Word_tally": 7,
         "Target": "the",
-        "Distractor": "lady",
-        "Target1": "hte",
-        "Distractor1": "dyal"
+        "Distractor1": "lady",
+        "Distractor2": "teh",
+        "Distractor3": "adly"
       },
       {
         "Sentence_num": 1,
         "Word_num": 8,
         "Word_tally": 8,
         "Target": "North",
-        "Distractor": "Worry",
-        "Target1": "Otnhr",
-        "Distractor1": "Oyrrw"
+        "Distractor1": "Worry",
+        "Distractor2": "Onhrt",
+        "Distractor3": "Owrry"
       },
       {
         "Sentence_num": 1,
         "Word_num": 9,
         "Word_tally": 9,
         "Target": "of",
-        "Distractor": "rise",
-        "Target1": "gowf",
-        "Distractor1": "iers"
+        "Distractor1": "rise",
+        "Distractor2": "oif",
+        "Distractor3": "srie"
       },
       {
         "Sentence_num": 1,
         "Word_num": 10,
         "Word_tally": 10,
         "Target": "England,",
-        "Distractor": "Created,",
-        "Target1": "Dnagenl,",
-        "Distractor1": "Adcetre,"
+        "Distractor1": "Created,",
+        "Distractor2": "Ndalnge,",
+        "Distractor3": "Dcrtaee,"
       }
     ],
     "questions": [
@@ -142,90 +142,90 @@ var mystimuli = [
         "Word_num": 1,
         "Word_tally": 1,
         "Target": "A",
-        "Distractor": "x-x-x",
-        "Target1": "x-x-x",
-        "Distractor1": "x-x-x"
+        "Distractor1": "x-x-x",
+        "Distractor2": "x-x-x",
+        "Distractor3": "x-x-x"
       },
       {
         "Sentence_num": 1,
         "Word_num": 2,
         "Word_tally": 2,
         "Target": "clear",
-        "Distractor": "rates",
-        "Target1": "rlaec",
-        "Distractor1": "seart"
+        "Distractor1": "rates",
+        "Distractor2": "acler",
+        "Distractor3": "rseat"
       },
       {
         "Sentence_num": 1,
         "Word_num": 3,
         "Word_tally": 3,
         "Target": "and",
-        "Distractor": "pre",
-        "Target1": "nda",
-        "Distractor1": "rpe"
+        "Distractor1": "pre",
+        "Distractor2": "dna",
+        "Distractor3": "rpe"
       },
       {
         "Sentence_num": 1,
         "Word_num": 4,
         "Word_tally": 4,
         "Target": "joyous",
-        "Distractor": "booths",
-        "Target1": "sjooyu",
-        "Distractor1": "oohtbs"
+        "Distractor1": "booths",
+        "Distractor2": "yosujo",
+        "Distractor3": "othobs"
       },
       {
         "Sentence_num": 1,
         "Word_num": 5,
         "Word_tally": 5,
         "Target": "day",
-        "Distractor": "nor",
-        "Target1": "yda",
-        "Distractor1": "vnruo"
+        "Distractor1": "nor",
+        "Distractor2": "ayd",
+        "Distractor3": "rno"
       },
       {
         "Sentence_num": 1,
         "Word_num": 6,
         "Word_tally": 6,
         "Target": "it",
-        "Distractor": "le",
-        "Target1": "wtgi",
-        "Distractor1": "dqel"
+        "Distractor1": "le",
+        "Distractor2": "gsit",
+        "Distractor3": "fela"
       },
       {
         "Sentence_num": 1,
         "Word_num": 7,
         "Word_tally": 7,
         "Target": "was",
-        "Distractor": "cent",
-        "Target1": "wsra",
-        "Distractor1": "ctne"
+        "Distractor1": "cent",
+        "Distractor2": "wsa",
+        "Distractor3": "tnce"
       },
       {
         "Sentence_num": 1,
         "Word_num": 8,
         "Word_tally": 8,
         "Target": "and",
-        "Distractor": "whom",
-        "Target1": "nad",
-        "Distractor1": "hwom"
+        "Distractor1": "whom",
+        "Distractor2": "nagsd",
+        "Distractor3": "whmo"
       },
       {
         "Sentence_num": 1,
         "Word_num": 9,
         "Word_tally": 9,
         "Target": "out",
-        "Distractor": "jack",
-        "Target1": "uto",
-        "Distractor1": "jakc"
+        "Distractor1": "jack",
+        "Distractor2": "otu",
+        "Distractor3": "kcja"
       },
       {
         "Sentence_num": 1,
         "Word_num": 10,
         "Word_tally": 10,
         "Target": "on",
-        "Distractor": "al",
-        "Target1": "owng",
-        "Distractor1": "adl"
+        "Distractor1": "al",
+        "Distractor2": "snog",
+        "Distractor3": "tal"
       }
     ],
     "questions": [

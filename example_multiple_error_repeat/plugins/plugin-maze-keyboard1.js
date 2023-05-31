@@ -2,7 +2,7 @@ var jsPsychMazeKeyboard = (function (jspsych) {
   'use strict';
 
   const info = {
-      name: "html-keyboard-response1",
+      name: "maze-trial",
       parameters: {
           /**
            * The HTML string to be displayed.
@@ -15,6 +15,16 @@ var jsPsychMazeKeyboard = (function (jspsych) {
           stimulus_right: {
               type: jspsych.ParameterType.HTML_STRING,
               pretty_name: "stimulus_right",
+              default: undefined,
+          },
+          stimulus_top: {
+              type: jspsych.ParameterType.HTML_STRING,
+              pretty_name: "stimulus_top",
+              default: undefined,
+          },
+          stimulus_bottom: {
+              type: jspsych.ParameterType.HTML_STRING,
+              pretty_name: "stimulus_bottom",
               default: undefined,
           },
           /**
@@ -79,6 +89,8 @@ var jsPsychMazeKeyboard = (function (jspsych) {
           new_html += '<div id="jspsych-html-keyboard-response-stimulus" style="font-family: \'Courier New\', monospace; font-size: 24pt">' +
           '<div class="center1"><p>'+trial.stimulus_left+'</p></div>' +
           '<div class="center2"><p>'+trial.stimulus_right+'</p></div>' +
+          '<div class="top1"><p>'+trial.stimulus_top+'</p></div>' +
+          '<div class="bottom1"><p>'+trial.stimulus_bottom+'</p></div>' +
           "</div>";
 
           // draw
@@ -101,8 +113,12 @@ var jsPsychMazeKeyboard = (function (jspsych) {
                   rt: response.rt,
                   stimulus_left: trial.stimulus_left,
                   stimulus_right: trial.stimulus_right,
+                  stimulus_top: trial.stimulus_top,
+                  stimulus_bottom: trial.stimulus_bottom,
                   Target: trial.Target,
-                  Distractor: trial.Distractor,
+                  Distractor1: trial.Distractor1,
+                  Distractor2: trial.Distractor2,
+                  Distractor3: trial.Distractor3,
                   response: response.key,
               };
               // clear the display
