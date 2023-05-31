@@ -25,8 +25,10 @@ library(here)
 #set the working directory to the folder where this located
 setwd("~/Documents/GitHub/maze-jspsych/csv_to_javascript/")
 
+here::here()
+
 #read in csv file
-natural_stories <- read_csv(paste0(here(), "/original_csv/natural_stories_maze_Boyce_Levy_2023.csv"))
+natural_stories <- read_csv("original_csv/natural_stories_maze_Boyce_Levy_2023.csv")
 
 #with the natural_stories data we need to apply several data processing steps so that it is in a usable format
 #these are explained below
@@ -128,7 +130,7 @@ write_file(x = story_all,
 # 
 # write_csv(natural_stories_questions, "natural_stories_questions_Boyce_Levy_2023.csv")
 
-natural_stories_questions <- read_csv(paste0(here(), "/original_csv/natural_stories_questions_Boyce_Levy_2023.csv"))
+natural_stories_questions <- read_csv("original_csv/natural_stories_questions_Boyce_Levy_2023.csv")
 
 questions_all <- NULL
 
@@ -204,5 +206,47 @@ maze_trials_all <- paste0(maze_trials_all,
 #this object can be saved as .js file to be used in the jspsych experiment
 write_file(x = maze_trials_all,
            file = paste0(here(), "/output_js/maze_trials", ".js"))
+
+
+
+
+df1 <- data.frame(name = c("a", "b", "c"),
+                  v = c(1, 2, 3),
+                  w = c(10, 20, 30)) %>%
+  group_by(name) %>%
+  nest_legacy(.key = "Values1")
+
+df2 <- data.frame(name = c("a", "b", "c"),
+                  x = c(5, 10, 15),
+                  y = c(100, 200, 300),
+                  z = c(1000, 2000, 3000)) %>%
+  group_by(name) %>%
+  nest_legacy(.key = "Values2")
+
+df3 <- df1 %>%
+  left_join(df2)
+
+natural_stories_tidy1 <- natural_stories_tidy %>%
+  group_by(Story_num, Total_words) %>%
+  filter(Sentence_num == 1,
+         Word_num < 11) %>%
+  nest_legacy(.key = "values")
+
+json <- toJSON(natural_stories_tidy1, dataframe = "rows", pretty = TRUE)
+
+natural_stories_questions1 <- natural_stories_questions %>%
+  group_by(Story_num) %>%
+  nest_legacy(.key = "questions")
+
+natural_stories1 <- natural_stories_tidy1 %>%
+  left_join(natural_stories_questions1)
+
+json <- toJSON(natural_stories1 %>%
+                 filter(Story_num < 3),
+               dataframe = "rows", pretty = TRUE)
+
+json %>%
+  write_file(paste0("output_js/maze_trials1", ".js"))
+
 
 
