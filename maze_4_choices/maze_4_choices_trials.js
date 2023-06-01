@@ -35,12 +35,14 @@ var error_message = "<p style='color: red; font-size: 24pt;'>x</p>";
 // this trial uses the jsPsychInstructions plugin
 // it will present the html formatted text in the pages argument
 // this is just an example page so that you can see how an instructions page looks, the text is based on https://github.com/vboyce/natural-stories-maze/blob/master/Materials/for_ns.js which was used by Boyce and Levy (2023)
+var main_instructions_text = "<div style='text-align: center; margin-right: 150px; margin-left: 150px;'><b>maze-jspsych example</b><br/><br/><p>For this experiment, please place your fingers in the following way:<br/><br/>left index finger on the <b>'"+down_key+"'</b> key<br/>left middle finger on the <b>'"+left_key+"'</b> key<br/>right index finger on the <b>'"+up_key+"'</b> key.<br/>right middle finger on the <b>'"+right_key+"'</b> key</p><p> You will read sentences word by word. On each screen you will see four options: one will be the next word in the sentence, and all the others will not.<br/><br/>Select the word that continues the sentence by pressing the keys in that follow this rule:<br/><br/> bottom option = <b>'"+down_key+"'</b> (left-hand, index finger)<br/>left option = <b>'"+left_key+"'</b> (left-hand, middle finger)<br/>top option = <b>'"+up_key+"'</b> (right-hand, index finger)<br/>right option = <b>'"+right_key+"'</b> (right-hand, middle finger)</p><p>Select the best word as quickly as you can, but without making too many errors.</p></div>";
+
 var main_instructions = {
     type: jsPsychInstructions,
     data: {
         trial1: 'instructions'
     },
-    pages: ["<div style='text-align: center; margin-right: 150px; margin-left: 150px;'><b>maze-jspsych example</b><br/><br/><p>For this experiment, please place your fingers in the following way:<br/><br/>left index finger on the <b>'c'</b> key<br/>left middle finger on the <b>'d'</b> key<br/>right index finger on the <b>'r'</b> key.<br/>right middle finger on the <b>'g'</b> key</p><p> You will read sentences word by word. On each screen you will see four options: one will be the next word in the sentence, and all the others will not.<br/><br/>Select the word that continues the sentence by pressing the keys in that follow this rule:<br/><br/> bottom option = <b>'c'</b> (left-hand, index finger)<br/>left option = <b>'d'</b> (left-hand, middle finger)<br/>top option = <b>'r'</b> (right-hand, index finger)<br/>right option = <b>'g'</b> (right-hand, middle finger)</p><p>Select the best word as quickly as you can, but without making too many errors.</p></div>"],
+    pages: [main_instructions_text],
     show_clickable_nav: true,
     allow_backward: false,
     allow_keys: false
@@ -64,13 +66,14 @@ var main_instructions = {
 
 // which contains all the trial information for the sentences/stories, this information is stored as a variable called maze_trial_values and will contain the values from our timeline variable - maze_stimuli
 // we will also do this for our comprehension questions, which are stored in the variable questions_array, with all the questions values contained in the questions
-// var maze_trial_values, maze_index;
+// note that we randomise the order of the questions, this is done with jsPsych.randomization.shuffle
+// randomising the order of the questions ensures that there is no order effects, i.e. everybody having the same questions presented in the same order
 
 // later on we will increase the values of maze_index and question_index after each trial has been completed, i.e. after the participant chooses the target word or gives a response to a question
 
 var maze_reset = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: " ",
+    stimulus: "",
     choices: "NO_KEYS",
     trial_duration: 0,
     data: {
@@ -79,7 +82,7 @@ var maze_reset = {
     on_finish: function() {
         maze_array = jsPsych.timelineVariable('values');
         maze_index = 0;
-        questions_array = jsPsych.timelineVariable('questions');
+        questions_array = jsPsych.randomization.shuffle(jsPsych.timelineVariable('questions'));
         question_index = 0;
     }
 };
@@ -256,9 +259,16 @@ var complete_maze_trial = {
 // COMPREHENSION QUESTIONS
 // ------------------
 
-// as we are likely to have more than one comprehension question we need to use `timeline_variables` to go through our `maze_questions_1` stimuli
-// note that it is not useful to do the error checking for the comprehension questions as we want to see if the participant actually chooses the correct answer
+// once a participant has read the story/sentence, we would check that they have understood what they have read using comprehension questions
+// first we will present an instructions page, as the instructions are a little different from the maze trials
+// the main question section will be similar to the maze trial in that they have to choose between a target answer and distractor by pressing a key
+// we will present two words, one on the left and one of the right, with the question located above the choices
+// note that it is not useful to do the error loop for the comprehension questions as we want to see if the participant actually chooses the correct answer
 
+// ----------------
+// COMPREHENSION QUESTION INSTRUCTIONS
+
+// this is similar to the maze instructions but the text is different
 var comprehension_instructions = {
     type: jsPsychInstructions,
     data: {
@@ -270,20 +280,30 @@ var comprehension_instructions = {
     allow_keys: false
 };
 
+// -------------------
+// COMPRENHENSIOM QUESTION TRIALS
+
+// we use the jsPsychMazeQuestion plugin here
+// again this trial is similar to the maze trial
+// we first shuffle the target and distractor
+// then assign them to either the left or the right location
+// we also add a prompt, this contains the question text and is positioned above the choices
+// we check to see if the participant was correct and code the response in the correct variable, where 1 = correct, 0 = not correct
 var comprehension_trial = {
     type: jsPsychMazeQuestion,
     on_start: function(data) {
+
         var random1 = jsPsych.randomization.shuffle([
-            jsPsych.timelineVariable('questions')[question_index].Target,
-            jsPsych.timelineVariable('questions')[question_index].Distractor
+            questions_array[question_index].Target,
+            questions_array[question_index].Distractor
         ]);
 
         data.stimulus_left = random1[0];
         data.stimulus_right = random1[1];
 
-        data.prompt = jsPsych.timelineVariable('questions')[question_index].Question;
+        data.prompt = questions_array[question_index].Question;
 
-        data.data = jsPsych.timelineVariable('questions')[question_index]
+        data.data = questions_array[question_index]
 
     },
     choices: [left_key, right_key],
@@ -308,7 +328,11 @@ var comprehension_trial = {
     }
 };
 
-var comprehension_trial_loop = {
+// --------------------
+// COMPLETE COMPREHENSION QUESTION TRIAL
+
+// as we need to loop through the questions, we
+var complete_comprehension_trial = {
     timeline: [comprehension_trial],
     loop_function() {
         question_index++;
@@ -320,12 +344,38 @@ var comprehension_trial_loop = {
     }
 };
 
+// ----------------
+// NEW MAZE PROCEED
+// ----------------
 
+// as the participant will finish the comprehension questions and move on to the next maze, we will want to make sure they can have a small pause and signal that a new maze will start
+// to do this we will create a trial letting the participant know that the next maze will begin when they are ready
+
+var proceed_trial = {
+    type: jsPsychInstructions,
+    data: {
+        trial1: 'proceed'
+    },
+    pages: ["That is the end of the questions.<br/><br/>Press the 'next' button to continue. Then place your fingers back on the keys."],
+    show_clickable_nav: true,
+    allow_backward: false,
+    allow_keys: false
+};
+
+// -----------------
+// COMPLETE MAZE AND COMPREHENSION TRIALS
+// -----------------
+
+// now we have both the maze and comprehension questions set up we can make a variable called maze_task_story
+// this will contain the maze_reset, complete_maze_trial, comprehension_instructions, complete_comprehension_trial together
+// this timeline is the basis of our experiment
+// we use maze_stimuli as our timeline variable as this contains all of our stimuli
 var maze_task_story = {
     timeline: [maze_reset,
-        maze_trials_loop,
+        complete_maze_trial,
         comprehension_instructions,
-        comprehension_trial_loop
+        complete_comprehension_trial,
+        proceed_trial
     ],
     timeline_variables: maze_stimuli
 };
