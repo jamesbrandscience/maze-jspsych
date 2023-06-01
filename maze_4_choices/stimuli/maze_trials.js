@@ -1,77 +1,97 @@
-var mystimuli = [
+var maze_stimuli = [
   {
     "Story_num": 1,
-    "Total_words": 10,
+    "Total_words": 1073,
     "values": [
       {
         "Sentence_num": 1,
         "Word_num": 1,
         "Word_tally": 1,
         "Target": "If",
-        "Distractor": "x-x-x"
+        "Distractor1": "x-x-x",
+        "Distractor2": "x-x-x",
+        "Distractor3": "x-x-x"
       },
       {
         "Sentence_num": 1,
         "Word_num": 2,
         "Word_tally": 2,
         "Target": "you",
-        "Distractor": "door"
+        "Distractor1": "door",
+        "Distractor2": "uoy",
+        "Distractor3": "dvoro"
       },
       {
         "Sentence_num": 1,
         "Word_num": 3,
         "Word_tally": 3,
         "Target": "were",
-        "Distractor": "anti"
+        "Distractor1": "anti",
+        "Distractor2": "ewre",
+        "Distractor3": "tnia"
       },
       {
         "Sentence_num": 1,
         "Word_num": 4,
         "Word_tally": 4,
         "Target": "to",
-        "Distractor": "pre"
+        "Distractor1": "pre",
+        "Distractor2": "tqo",
+        "Distractor3": "erpv"
       },
       {
         "Sentence_num": 1,
         "Word_num": 5,
         "Word_tally": 5,
         "Target": "journey",
-        "Distractor": "seasons"
+        "Distractor1": "seasons",
+        "Distractor2": "yjenrou",
+        "Distractor3": "seanoss"
       },
       {
         "Sentence_num": 1,
         "Word_num": 6,
         "Word_tally": 6,
         "Target": "to",
-        "Distractor": "ha"
+        "Distractor1": "ha",
+        "Distractor2": "tsgo",
+        "Distractor3": "fvhaa"
       },
       {
         "Sentence_num": 1,
         "Word_num": 7,
         "Word_tally": 7,
         "Target": "the",
-        "Distractor": "lady"
+        "Distractor1": "lady",
+        "Distractor2": "teh",
+        "Distractor3": "adly"
       },
       {
         "Sentence_num": 1,
         "Word_num": 8,
         "Word_tally": 8,
         "Target": "North",
-        "Distractor": "Worry"
+        "Distractor1": "Worry",
+        "Distractor2": "Onhrt",
+        "Distractor3": "Owrry"
       },
       {
         "Sentence_num": 1,
         "Word_num": 9,
         "Word_tally": 9,
         "Target": "of",
-        "Distractor": "rise"
+        "Distractor1": "rise",
+        "Distractor2": "oif",
+        "Distractor3": "srie"
       },
       {
         "Sentence_num": 1,
         "Word_num": 10,
         "Word_tally": 10,
         "Target": "England,",
-        "Distractor": "Created,"
+        "Distractor1": "Created,",
+        "Distractor2": "Ndalnge,",
+        "Distractor3": "Dcrtaee,"
       }
     ],
     "questions": [
@@ -115,77 +135,97 @@ var mystimuli = [
   },
   {
     "Story_num": 2,
-    "Total_words": 10,
+    "Total_words": 990,
     "values": [
       {
         "Sentence_num": 1,
         "Word_num": 1,
         "Word_tally": 1,
         "Target": "A",
-        "Distractor": "x-x-x"
+        "Distractor1": "x-x-x",
+        "Distractor2": "x-x-x",
+        "Distractor3": "x-x-x"
       },
       {
         "Sentence_num": 1,
         "Word_num": 2,
         "Word_tally": 2,
         "Target": "clear",
-        "Distractor": "rates"
+        "Distractor1": "rates",
+        "Distractor2": "acler",
+        "Distractor3": "rseat"
       },
       {
         "Sentence_num": 1,
         "Word_num": 3,
         "Word_tally": 3,
         "Target": "and",
-        "Distractor": "pre"
+        "Distractor1": "pre",
+        "Distractor2": "dna",
+        "Distractor3": "rpe"
       },
       {
         "Sentence_num": 1,
         "Word_num": 4,
         "Word_tally": 4,
         "Target": "joyous",
-        "Distractor": "booths"
+        "Distractor1": "booths",
+        "Distractor2": "yosujo",
+        "Distractor3": "othobs"
       },
       {
         "Sentence_num": 1,
         "Word_num": 5,
         "Word_tally": 5,
         "Target": "day",
-        "Distractor": "nor"
+        "Distractor1": "nor",
+        "Distractor2": "ayd",
+        "Distractor3": "rno"
       },
       {
         "Sentence_num": 1,
         "Word_num": 6,
         "Word_tally": 6,
         "Target": "it",
-        "Distractor": "le"
+        "Distractor1": "le",
+        "Distractor2": "gsit",
+        "Distractor3": "fela"
       },
       {
         "Sentence_num": 1,
         "Word_num": 7,
         "Word_tally": 7,
         "Target": "was",
-        "Distractor": "cent"
+        "Distractor1": "cent",
+        "Distractor2": "wsa",
+        "Distractor3": "tnce"
       },
       {
         "Sentence_num": 1,
         "Word_num": 8,
         "Word_tally": 8,
         "Target": "and",
-        "Distractor": "whom"
+        "Distractor1": "whom",
+        "Distractor2": "nagsd",
+        "Distractor3": "whmo"
       },
       {
         "Sentence_num": 1,
         "Word_num": 9,
         "Word_tally": 9,
         "Target": "out",
-        "Distractor": "jack"
+        "Distractor1": "jack",
+        "Distractor2": "otu",
+        "Distractor3": "kcja"
       },
       {
         "Sentence_num": 1,
         "Word_num": 10,
         "Word_tally": 10,
         "Target": "on",
-        "Distractor": "al"
+        "Distractor1": "al",
+        "Distractor2": "snog",
+        "Distractor3": "tal"
       }
     ],
     "questions": [
@@ -227,4 +267,4 @@ var mystimuli = [
       }
     ]
   }
-];
+]

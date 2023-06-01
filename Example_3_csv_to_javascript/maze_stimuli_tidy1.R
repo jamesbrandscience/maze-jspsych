@@ -226,7 +226,7 @@ df2 <- data.frame(name = c("a", "b", "c"),
 df3 <- df1 %>%
   left_join(df2)
 
-natural_stories_tidy1 <- natural_stories_tidy %>%
+natural_stories_tidy2 <- natural_stories_tidy1 %>%
   group_by(Story_num, Total_words) %>%
   filter(Sentence_num == 1,
          Word_num < 11) %>%
@@ -238,15 +238,89 @@ natural_stories_questions1 <- natural_stories_questions %>%
   group_by(Story_num) %>%
   nest_legacy(.key = "questions")
 
-natural_stories1 <- natural_stories_tidy1 %>%
+natural_stories1 <- natural_stories_tidy2 %>%
   left_join(natural_stories_questions1)
 
-json <- toJSON(natural_stories1 %>%
+json <- paste0("var maze_stimuli = ",
+               toJSON(natural_stories1 %>%
                  filter(Story_num < 3),
-               dataframe = "rows", pretty = TRUE)
+               dataframe = "rows",
+               pretty = TRUE))
 
 json %>%
-  write_file(paste0("output_js/maze_trials1", ".js"))
+  write_file(paste0("/Users/james/Documents/GitHub/maze-jspsych/maze_4_choices/stimuli/maze_trials", ".js"))
 
+library(stringi)
 
+natural_stories_tidy1 <- natural_stories_tidy %>%
+  mutate(Target1 = stri_rand_shuffle(Target),
+         Target1 = ifelse(Target1 == Target,
+                          stri_rand_shuffle(paste0(
+                            Target,
+                            stri_rand_strings(n = 1, length = 2, pattern = "[a-z]"))),
+                          Target1),
+         Target1 = str_remove_all(Target1, "\\,|\\.|\\!|\\?|\\'"),
+         Target1 = ifelse(str_ends(Target, "\\,|\\.|\\!|\\?|\\'"), paste0(Target1, str_sub(Target, -1, -1)), Target1),
+         Target1 = tolower(Target1),
+         Target1 = ifelse(str_length(Target1) < 3, stri_rand_shuffle(paste0(
+           Target1,
+           sample(letters, sample(c(1, 2), 1)))),
+           Target1),
+         real_word1 = ifelse(Target1 %in% GradyAugmented, 1, 0),
+         Target1 = ifelse(real_word1 == 1, stri_rand_shuffle(paste0(
+           Target1,
+           sample(letters, sample(c(1, 2), 1)))),
+           Target1),
+         Target1 = ifelse(str_starts(Target, "[A-Z]"), str_to_title(Target1), Target1),
+         Target1 = ifelse(Word_num == 1, "x-x-x", Target1)
+         ) %>%
+  mutate(Distractor1 = stri_rand_shuffle(Distractor),
+         Distractor1 = ifelse(Distractor1 == Distractor,
+                          stri_rand_shuffle(paste0(
+                            Distractor,
+                            stri_rand_strings(n = 1, length = 2, pattern = "[a-z]"))),
+                          Distractor1),
+         Distractor1 = str_remove_all(Distractor1, "\\,|\\.|\\!|\\?|\\'"),
+         Distractor1 = ifelse(str_ends(Distractor, "\\,|\\.|\\!|\\?|\\'"), paste0(Distractor1, str_sub(Distractor, -1, -1)), Distractor1),
+         Distractor1 = tolower(Distractor1),
+         Distractor1 = ifelse(str_length(Distractor1) < 3, stri_rand_shuffle(paste0(
+           Distractor1,
+           sample(letters, sample(c(1, 2), 1)))),
+           Distractor1),
+         real_word1 = ifelse(Distractor1 %in% GradyAugmented, 1, 0),
+         Distractor1 = ifelse(real_word1 == 1, stri_rand_shuffle(paste0(
+           Distractor1,
+           sample(letters, sample(c(1, 2), 1)))),
+           Distractor1),
+         Distractor1 = ifelse(str_starts(Distractor, "[A-Z]"), str_to_title(Distractor1), Distractor1),
+         Distractor1 = ifelse(Word_num == 1, "x-x-x", Distractor1)
+  ) %>%
+  mutate(real_word1 = ifelse(Target1 %in% GradyAugmented, 1, 0),
+         Target1 = ifelse(real_word1 == 1, str_remove(Target1, "a|e|i|o|u"), Target1),
+         length_diff1 = str_length(Target) - str_length(Target1),
+         real_word2 = ifelse(Distractor1 %in% GradyAugmented, 1, 0),
+         Distractor1 = ifelse(real_word2 == 1, str_remove(Distractor1, "a|e|i|o|u"), Distractor1),
+         length_diff2 = str_length(Distractor) - str_length(Distractor1),
+         real_word1 = ifelse(Target1 %in% GradyAugmented, 1, 0),
+         real_word2 = ifelse(Distractor1 %in% GradyAugmented, 1, 0),
+         Target1 = ifelse(real_word1 == 1, stri_rand_shuffle(paste0(
+           Target1,
+           sample(letters, sample(c(1, 2), 1)))), Target1)
+         ) %>%
+  select(-real_word1, -length_diff1, -real_word2, -length_diff2) %>%
+  rename(Distractor3 = Distractor1,
+         Distractor2 = Target1,
+         Distractor1 = Distractor)
 
+%>%
+  View()
+
+library(qdapDictionaries)
+
+GradyAugmented %>%
+  as_tibble() %>%
+  nrow()
+  slice(1:10)
+  View()
+
+stri_reverse("abc")
