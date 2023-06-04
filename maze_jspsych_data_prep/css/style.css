@@ -1,0 +1,73 @@
+.goog-tooltip {
+    display: none !important;
+}
+.goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#goog-gt-tt {display:none!important;visibility:hidden!important;}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;visibility:hidden!important;
+    }
+
+
+    .collapsible1 {
+      background-color: #17a2b8;
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .active, .collapsible1:hover {
+      background-color: #555;
+    }
+
+    .collapsible1:after {
+      content1: '\002B';
+      color: white;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+
+    .active:after {
+      content1: "\2212";
+    }
+
+    .content1 {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f1f1f1;
+    }
+
+    .codeblock {
+      background-color: #272823;
+      border-radius: 5px;
+      padding: 10px;
+      font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+      width:90%
+
+    }
+
+    comment {
+    	color: #747160;
+    }
+
+    radio.col-up {
+      display: inline-flex;
+      flex-direction: column-reverse;
+      align-items: center;
+    }

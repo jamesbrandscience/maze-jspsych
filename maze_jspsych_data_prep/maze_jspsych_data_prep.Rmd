@@ -1,0 +1,78 @@
+---
+title: "Preparing your data for use in a maze experiment in JsPsych"
+author: "James Brand"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  rmdformats::readthedown:
+    # pandoc_args: "--highlight-style=my.theme"
+    highlight: pygments
+    toc_float: true
+    code_download: true
+    toc_depth: 3
+    collapsed: false
+    df_print: paged
+    lightbox: TRUE
+    gallery: TRUE
+    css: "css/style.css"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Outline
+
+This worksheet is intended for those wanting to learn how to prepare a stimuli file for a maze experiment implemented using JsPsych.
+
+By the end you should be able to:
+
+- **Read** in a csv version of a stimuli file
+- **Apply** a data processing pipeline to that file
+- **Format** the resulting data to JSON format
+- **Output** the data to a javascript (.js) file
+- **Use** your data to run a maze experiment in JsPsych (see additional worksheet for how to do the JsPsych stuff)
+
+# Prerequisites
+
+You should be familiar with the maze task, where participants do word-by-word reading of a sentence, based on a forced choice between a target word and distractor. There are different implementations of the maze paradigm, such as G-maze (grammaticality), L-maze (lexicality), I-maze (interpolated) and A-maze (auto).
+
+If you are not, please familiarise yourself with these articles:
+
+Boyce, V., Futrell, R., & Levy, R. P. (2020). Maze Made Easy: Better and easier measurement of incremental processing difficulty. Journal of Memory and Language, 111, 104082.
+https://www.sciencedirect.com/science/article/pii/S0749596X19301147#b0070
+
+Boyce, V., Levy, R., Boyce, V., & Levy, R. P. (2023). A-maze of Natural Stories: Comprehension and surprisal in the Maze task. Glossa Psycholinguistics, 2(1).
+https://escholarship.org/uc/item/6vh9d8zm#B75
+
+Forster, K. I., Guerrera, C., & Elliot, L. (2009). The maze task: Measuring forced incremental sentence processing time. Behavior research methods, 41, 163-171.
+https://link.springer.com/article/10.3758/BRM.41.1.163
+
+Vani, P., Wilcox, E. G., & Levy, R. (2021). Using the interpolated Maze task to assess incremental processing in English relative clauses. Proceedings of the Annual Meeting of the Cognitive Science Society, 43(43).
+https://escholarship.org/content/qt3x34x7dz/qt3x34x7dz_noSplash_7b09520498ffc3fb5ecb4f7476bba898.pdf
+
+Wilcox, E., Vani, P., & Levy, R. (2021). A Targeted Assessment of Incremental Processing in Neural Language Models and Humans. Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 939–952.
+https://aclanthology.org/2021.acl-long.76.pdf
+
+# Load in packages
+
+The following packages are required to complete the steps in this document:
+
+`tidyverse`
+`jsonlite`
+
+If you have not got `tidyverse` or `jsonlite` installed, the you will have to run the following code:
+
+`install.packages("tidyverse", "jsonlite")`
+
+You can remove any packages that you have already installed.
+
+In order to load the packages and use them, we need to run the following code:
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+library(jsonlite)
+```
+
+# Load in the data
+
+The data we will be using is 

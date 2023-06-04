@@ -186,6 +186,63 @@ var maze_trial = {
     }
 };
 
+
+var maze_trial1 = {
+    type: jsPsychMazeKeyboard,
+    prompt: function() {
+
+        var progress_bar = '<relative><progress id="progress_bar" value="' +
+            jsPsych.timelineVariable('values')[maze_index].Word_num +
+            '" max="' +
+            jsPsych.timelineVariable("Total_words") +
+            '"></progress></relative>';
+
+        return progress_bar;
+    },
+    on_start: function(data) {
+
+      var data1 = jsPsych.data.get().last(1).values()[0];
+
+        data.stimulus_left = data1.stimulus_left;
+        data.stimulus_right = data1.stimulus_right;
+        data.stimulus_top = data1.stimulus_top;
+        data.stimulus_bottom = data1.stimulus_bottom;
+
+        data.data = jsPsych.timelineVariable('values')[maze_index]
+
+    },
+    choices: [left_key, right_key, up_key, down_key],
+    on_finish: function() {
+
+        var data = jsPsych.data.get().last(1).values()[0];
+
+        if (jsPsych.pluginAPI.compareKeys(data.stimulus_left,
+                data.Target) &&
+            data.response == left_key) {
+            data.correct = 1
+        } else if (jsPsych.pluginAPI.compareKeys(data.stimulus_right,
+                data.Target) &&
+            data.response == right_key) {
+            data.correct = 1;
+        } else if (jsPsych.pluginAPI.compareKeys(data.stimulus_top,
+                data.Target) &&
+            data.response == up_key) {
+            data.correct = 1
+        } else if (jsPsych.pluginAPI.compareKeys(data.stimulus_bottom,
+                data.Target) &&
+            data.response == down_key) {
+            data.correct = 1;
+        } else {
+            data.correct = 0;
+        };
+
+        data.trial1 = "maze";
+        data.Story_num = jsPsych.timelineVariable('Story_num');
+        data.Total_words = jsPsych.timelineVariable('Total_words');
+    }
+};
+
+
 // ---------------
 // CORRECT KEY CHECK
 
@@ -231,7 +288,7 @@ var error_trial = {
 };
 
 var if_node = {
-    timeline: [error_trial],
+    timeline: [error_trial, maze_trial1],
     conditional_function: key_check
 };
 
